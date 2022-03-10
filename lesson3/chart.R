@@ -1,2 +1,15 @@
-H <- c(7,12,28,3,41)
-barplot(H)
+d <- read.csv("https://www.lerner.ccf.org/qhs/datasets/SurgeryTiming.csv")
+d1 <- subset(d, bmi != "NA")
+x <- d1$bmi
+a <- min(x)
+b <- max(x)
+q <- (b-a)/4
+xx <- c(a, a+q, a+2*q, a+3*q, a+4*q)
+F <- c(1:5)
+F[0] <- nrow(subset(d1, bmi<xx[0]))
+F[1] <- nrow(subset(d1, bmi<xx[1]))
+F[2] <- nrow(subset(d1, bmi<xx[2]))
+F[3] <- nrow(subset(d1, bmi<xx[3]))
+F[4] <- nrow(subset(d1, bmi<xx[4]))
+F <- F/nrow(d1)
+plot(xx, F,type="l")
